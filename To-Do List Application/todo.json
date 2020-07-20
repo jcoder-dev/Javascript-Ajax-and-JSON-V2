@@ -1,0 +1,23 @@
+[
+    {
+        "task":"get milk",
+        "who":"Scott",
+        "dueDate":"today",
+        "done":false
+    },
+
+    {
+        "task":"get broccoli",
+        "who":"Elisabeth",
+        "dueDate":"today",
+        "done":false
+    },
+
+    {
+        "task":"Dar aulas a Nilza",
+        "who":"Jorginho",
+        "dueDate":"today",
+        "done":false
+    }
+]
+

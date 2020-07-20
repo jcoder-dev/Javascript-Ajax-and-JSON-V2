@@ -1,0 +1,23 @@
+?xml version="1.0" encoding="UTF-8"?>
+<root>
+   <element>
+      <likes>
+         <element>eating</element>
+         <element>running</element>
+         <element>jumping</element>
+      </likes>
+      <name>salon</name>
+      <type>cat</type>
+      <weight>8</weight>
+   </element>
+   <element>
+      <likes>
+         <element>sleeping</element>
+         <element>running</element>
+         <element>jumping</element>
+      </likes>
+      <name>bobby</name>
+      <type>dog</type>
+      <weight>8</weight>
+   </element>
+</root>

@@ -1,0 +1,18 @@
+
+ [
+     {
+         "type":"cat",
+         "name":"salon",
+         "weight":"8",
+         "likes":["eating","running","jumping"]
+     },
+
+     {
+        "type":"dog",
+        "name":"bobby",
+        "weight":"8",
+        "likes":["sleeping","running","jumping"]
+    }
+
+ ]
+   
