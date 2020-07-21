@@ -140,7 +140,7 @@ function saveTodoData()
     var todosJSON = JSON.stringify(todos);
     var request = new XMLHttpRequest;
     var URL = "save.php?data=" + todosJSON;
-    console.log(URL);
+    console.log(todosJSON);
     
     request.open("GET",URL);
     request.setRequestHeader("Content-Type","text/plain;charset=UTF-8");
