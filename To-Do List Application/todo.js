@@ -1,4 +1,3 @@
-window.onload = init;
 
 function Todo(task, who, dueDate,)
 {
@@ -9,12 +8,17 @@ function Todo(task, who, dueDate,)
 }
 
 var todos = new Array();
+
+window.onload = init;
+
 function init(){
     getToDo();
 
     var buttonSubimit = document.getElementById("submit");
         buttonSubimit.onclick = getFormData;
         getFormData();
+        saveTodoData();
+
         
 }
 
@@ -84,7 +88,6 @@ function adTodosToPage()
 function getFormData()
 {
     var task = document.getElementById("task").value;
-    console.log(task);
     if(checkInputText(task,"Please enter a task")) return;
 
     var who = document.getElementById("who").value;
@@ -98,7 +101,7 @@ function getFormData()
     var todoItem = new Todo(task,who,dueDate);
     todos.push(todoItem);
     addTodosToPage(todoItem);
-    saveTodoData();
+    saveTodoData()
     
 
 }
@@ -133,10 +136,15 @@ function addTodosToPage(todoItem)
 
 function saveTodoData()
 {
+   
     var todosJSON = JSON.stringify(todos);
     var request = new XMLHttpRequest;
-    var URL = "save.php?data=" + encodeURI(todosJSON);
+    var URL = "save.php?data=" + todosJSON;
+    console.log(URL);
+    
     request.open("GET",URL);
     request.setRequestHeader("Content-Type","text/plain;charset=UTF-8");
     request.send();
+
+    
 }
