@@ -10,14 +10,14 @@
         "task":"get broccoli",
         "who":"Elisabeth",
         "dueDate":"today",
-        "done":false
+        "done":true
     },
 
     {
         "task":"Dar aulas a Nilza",
         "who":"Jorginho",
         "dueDate":"today",
-        "done":false
+        "done":true
     },
 
     {

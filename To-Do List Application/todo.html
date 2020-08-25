@@ -2,41 +2,7 @@
 
 <head>
     <meta charset="utf-8">
-    <style>
-        body {
-            font-family: Helvetica, Arial, sans-serif;
-        }
-
-        .tableContainer {
-            display: flex;
-        }
-
-        body {
-            font-family: Helvetica, Arial, sans-serif;
-        }
-
-        legend {
-            font-weight: bold;
-        }
-
-        div.tableContainer {
-            display: table;
-            border-spacing: 5px;
-        }
-
-        div.tableRow {
-            display: table-row;
-        }
-
-        div.tableRow label {
-            display: table-cell;
-            text-align: right;
-        }
-
-        div.tableRow input {
-            display: table-cell;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css"/>
 </head>
 
 <body>
@@ -46,7 +12,7 @@
     </ul>
 
 
-    <form>
+    <form method="get" action="save.php">
         <fieldset>
             <legend>Add a new to-do item</legend>
             <div class="tableContainer">
