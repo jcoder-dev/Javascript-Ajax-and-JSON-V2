@@ -1,5 +1,6 @@
 
-function Todo(task, who, dueDate) {
+function Todo(id, task, who, dueDate) {
+    this.id = id;
     this.task = task;
     this.who = who;
     this.dueDate = dueDate;
@@ -12,18 +13,39 @@ var todos = new Array();
 window.onload = init;
 
 function init() {
-    getToDo();
+    //getToDo();
 
     var buttonSubmit = document.getElementById("submit");
-
     buttonSubmit.onclick = getFormData;
-    saveTodoData();
+    getTodoItems();
 
 
 }
 
+function getTodoItems() {
+    if (localStorage) {
+        for (var i = 0; i < localStorage.length; i++) {
+            var key = localStorage.key(i);
+            if (key.substring(0, 5) == "todo:") {
+                var item = localStorage.getItem(key);
+                var todoItem = JSON.parse(item);
 
-function getToDo() {
+                todos.push(todoItem);
+
+
+            }
+        }
+
+        addTodosToPage();
+    }
+
+    else {
+        console.log("localStorage is not supported in this browser! ");
+    }
+}
+
+
+/*function getToDo() {
     var request = new XMLHttpRequest;
     request.open("GET", "todo.json");
     request.onreadystatechange = function () {
@@ -42,9 +64,9 @@ function getToDo() {
         }
     }
     request.send(); //Enviar a requisição
-}
+}*/
 
-function parseToDoItems(todoJSON) {
+/*function parseToDoItems(todoJSON) {
     if (todoJSON == null || todoJSON.trim() == "") {
         console.log("Error: No data Found");
         return;
@@ -65,7 +87,7 @@ function parseToDoItems(todoJSON) {
     }
 
 
-}
+} */
 
 function showInPage() {
     var ul = document.getElementById("todoList");
@@ -88,15 +110,31 @@ function getFormData() {
     if (checkInputText(dueDate, "Please enter the due date of the task")) return;
 
     if (task && who && dueDate) {
-        if(who != task)
-        {
-            var todoItem = new Todo(task, who, dueDate);
+        if (who != task) {
+            var id = (new Date()).getTime();
+            var todoItem = new Todo(id, task, who, dueDate);
             todos.push(todoItem);
-            addTodosToPage(todoItem);
-            saveTodoData();
+            addTodoToPage(todoItem);
+
+
+            saveTodoItem(todoItem);
         }
     }
-  
+
+}
+
+function saveTodoItem(todoItem) {
+
+    if (localStorage) {
+        var key = "todo: " + todoItem.id;
+        var item = JSON.stringify(todoItem);
+
+        localStorage.setItem(key, item);
+    }
+
+    else {
+        console.log("Some error ocurred !!!");
+    }
 }
 
 function checkInputText(value, msg) {
@@ -113,14 +151,23 @@ function checkInputText(value, msg) {
 }
 
 
-function addTodosToPage(todoItem) {
+function addTodosToPage() {
     var ul = document.getElementById("todoList");
-    var li = createNewTodoItem(todoItem);
     var listFragment = document.createDocumentFragment();
-    li.innerHTML = todoItem.who + " needs to " + todoItem.task + " by " + todoItem.dueDate;
-    listFragment.appendChild(li);
+
+    for (let i = 0; i < todos.length; i++) {
+        var todoItem = todos[i];
+        var li = createNewTodoItem(todoItem);
+        listFragment.appendChild(li);
+    }
 
     ul.appendChild(listFragment);
+}
+
+function addTodoToPage(todoItem) {
+    var ul = document.getElementById("todoList");
+    var li = createNewTodoItem(todoItem);
+    ul.appendChild(li);
 
     document.forms[0].reset();
 }
@@ -156,9 +203,43 @@ function createNewTodoItem(todoItem) {
         spanDone.innerHTML = "&nbsp;&#10004;&nbsp;";
     }
 
+    var spanDelete = document.createElement("sapnDelete");
+    spanDelete.setAttribute("id", todoItem.id);
+    spanDelete.setAttribute("class", "delete");
+    spanDelete.innerHTML = "&nbsp;&#10007;&nbsp;";
+
+    spanDelete.onclick = deleteItem;
+
+
     li.appendChild(spanDone);
     li.appendChild(spanTodo);
+    li.appendChild(spanDelete);
 
     return li;
+
+}
+
+function deleteItem(e) {
+
+    var id = e.target.id;
+    console.log("delete an item: " + id);
+
+    // find and remove item in localStorage
+    var key = "todo: " + id;
+    localStorage.removeItem(key);
+
+    //find and remove item in the array
+    for (let i=0; i<todos.length; i++){
+        if(todos[i].id = id){
+            todos.splice(i,1);
+            break;
+        }
+    }
+
+    // find and remove item in the page
+
+    var li = e.target.parentElement;
+    var ul = document.getElementById("todoList");
+    ul.removeChild(li);
 
 }

@@ -31,6 +31,7 @@ body {
     } 
     
     ul#todoList li {
+        position: relative;
         padding: 5px;
         margin: 5px;
         background-color: #ededed;
@@ -40,9 +41,20 @@ body {
     ul#todoList li span.notDone {
         margin-right: 10px;
         background-color: #FF9999;
+        cursor: pointer;
     } 
     
     ul#todoList li span.done {
         margin-right: 10px;
         background-color: #80CC80;
+        cursor: pointer;
     }
+
+    ul#todoList li span.delete{
+        display: inline-block;
+        position: absolute;
+        right: 5px;
+        cursor: pointer;
+    }
+
+    
